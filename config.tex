@@ -1,0 +1,82 @@
+%% Handout
+%\documentclass[handout,compress,dvipsnames]{beamer} % only complete slides, no "animation"
+%\setbeameroption{hide notes} % Only slides
+
+%% Presentation
+\documentclass[dvipsnames]{beamer} % complete slides with "animation"
+\setbeameroption{show notes}\setbeameroption{show notes on second screen=right} % Slides and notes
+
+\usepackage{pdfpages}
+\usepackage{fix-cm}
+
+% adjust note page
+\setbeamertemplate{note page}{%
+    \pagecolor{yellow!5}
+    \vfill
+    \begin{minipage}[c][\textheight][t]{\textwidth}
+        {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle\par}
+        \insertnote
+    \end{minipage}
+}
+
+% Theme and coloring
+\usetheme{Warsaw}
+\colorlet{darkbg}{MidnightBlue}
+\colorlet{lightbg}{Cyan!20}
+\colorlet{slidebg}{Cyan!5}
+\setbeamertemplate{frametitle}[default]
+\setbeamercolor{frametitle}{fg=white,bg=darkbg}
+\setbeamercolor{framesubtitle}{fg=lightgray}
+\setbeamercolor{block title}{fg=white,bg=darkbg}
+\setbeamercolor{block body}{bg=lightbg}
+\setbeamertemplate{itemize item}[default]
+\setbeamercolor{itemize item}{fg=black}
+\setbeamertemplate{enumerate item}[default]
+\setbeamercolor{enumerate item}{fg=black}
+\setbeamercolor{title}{fg=white,bg=darkbg}
+\setbeamercolor{background canvas}{bg=slidebg}
+
+
+%% remove some stuff
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{headline}{}
+\let\dohead\relax % remove toc header
+
+% Packages
+\usepackage{enumerate}
+\usepackage{array}
+\usepackage{eqnarray}
+\usepackage{longtable}
+\usepackage{bookmark}
+\usepackage{caption}
+\usepackage{multido}
+
+% define title with section and subsection
+\newcommand{\makeFrameTitle}{
+    \setbox0=\hbox{\subsecname\unskip}\ifdim\wd0=0pt
+        \frametitle{\secname}
+    \else
+        \frametitle{\secname}
+        \framesubtitle{\subsecname}
+    \fi
+}
+
+%%% Citation %%%
+\usepackage[backend=biber,%
+    style=ieee,
+]{biblatex}
+\addbibresource{bibliography.bib}
+\renewcommand*{\bibfont}{\fontsize{8}{8}\selectfont}
+
+% Custom Commands
+\newcommand{\slide}[1]{\frame{\makeFrameTitle #1}}
+\newcommand{\animationSlide}[1]{\frame<handout:0>{\makeFrameTitle #1}}
+\newcommand{\notes}[1]{\note{\begin{itemize}#1\end{itemize}}}
+\newcommand{\arrow}{\textrightarrow~}
+\newcommand{\defblock}[1]{\begin{block}{Explanation} #1 \end{block}}
+\newcommand{\timenote}[1]{\item \textbf{time: #1}}
+\mode<handout>{\renewcommand{\timenote}[1]{}}
+\newcommand{\hint}[1]{\item \textit{#1}}
+\mode<handout>{\renewcommand{\hint}[1]{}}
+
